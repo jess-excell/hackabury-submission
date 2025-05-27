@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{% block title %}My Portfolio{% endblock %}</title>
+  <title>{% block title %}Hackabury{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap');
@@ -18,10 +18,11 @@
 
   <!-- Navigation Bar -->
   <nav class="border-b border-gray-700 py-4 px-6 flex justify-between items-center backdrop-blur-md bg-gray-900/30 fixed w-full top-0 z-10">
-    <a href="/" class="text-xl font-semibold text-gray-200">My Portfolio</a>
+    <a href="/" class="text-xl font-semibold text-gray-200">cool name</a>
     <ul class="flex space-x-6">
       <li><a href="/" class="px-4 py-2 border border-gray-500 rounded-lg hover:bg-gray-800">Home</a></li>
-      <li><a href="/" class="px-4 py-2 hover:border-gray-500 rounded-lg hover:bg-gray-800">option 1</a></li>
+      <li><a href="/" class="px-4 py-2 hover:border-gray-500 rounded-lg hover:bg-gray-800">Activities</a></li>
+      <li><a href="/" class="px-4 py-2 hover:border-gray-500 rounded-lg hover:bg-gray-800">Other extras</a></li>
       <li><a href="/" class="px-4 py-2 hover:border-gray-500 rounded-lg hover:bg-gray-800">About us</a></li>
       <li><a href="/" class="px-4 py-2 hover:border-gray-500 rounded-lg hover:bg-gray-800">Contact</a></li>
     </ul>
@@ -30,7 +31,7 @@
   <!-- Main Content -->
   <main class="pt-24 px-6 flex-1">
     {% block content %}
-    <!-- Page content -->
+      <button type="submit" class="bg-gray-200 border-gray-700 px-6 py-4 text-white">Add</button>
     {% endblock %}
   </main>
 
