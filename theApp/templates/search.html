@@ -1,5 +1,95 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if %}
+<h1 class="text-4xl">Hey, {{first_name}}!</h1>
+<p>You've selected to go from {{from}} to {{to}}. We've found the following options for you:</p>
+<br/>
+{% if airport_transfer %}
+<h2 class="text-xl">Airport Transfers</h2>
+<div>
+    <ul>
+       <li>Airport option 1</li> 
+       <li>Airport option 2</li> 
+       <li>Airport option 3</li> 
+    </ul>
+</div>
+{% endif %}
+
+{% if airport_fast_track %}
+<h2 class="text-xl">Airport Fast Track</h2>
+<div>
+    <ul>
+       <li>Fast track option 1</li> 
+       <li>Fast track option 2</li> 
+       <li>Fast track option 3</li> 
+    </ul>
+</div>
+{% endif %}
+
+{% if airport_lounge %}
+<h2 class="text-xl">Airport Lounge</h2>
+<div>
+    <ul>
+       <li>Airport option 1</li> 
+       <li>Airport option 2</li> 
+       <li>Airport option 3</li> 
+    </ul>
+</div>
+{% endif %}
+
+{% if taxi %}
+<h2 class="text-xl">Taxis</h2>
+<div>
+    <ul>
+       <li>Taxi option 1</li> 
+       <li>Taxi option 2</li> 
+       <li>Taxi option 3</li> 
+    </ul>
+</div>
+{% endif %}
+
+{% if insurance %}
+<h2 class="text-xl">Insurance</h2>
+<div>
+    <ul>
+       <li>Insurance option 1</li> 
+       <li>Insurance option 2</li> 
+       <li>Insurance option 3</li> 
+    </ul>
+</div>
+{% endif %}
+
+{% if travel_money %}
+<h2 class="text-xl">Travel Money</h2>
+<div>
+    <ul>
+       <li>Travel option 1</li> 
+       <li>Travel option 2</li> 
+       <li>Travel option 3</li> 
+    </ul>
+</div>
+{% endif %}
+
+{% if activities_and_festivals %}
+<h2 class="text-xl">Activities and Festivals</h2>
+<div>
+    <ul>
+       <li>Activity option 1</li> 
+       <li>Activity option 2</li> 
+       <li>Festival option 3</li> 
+    </ul>
+</div>
+{% endif %}
+
+{% if parking %}
+<h2 class="text-xl">Parking options</h2>
+<div>
+    <ul>
+       <li>Parking option 1</li> 
+       <li>Parking option 2</li> 
+       <li>Parking option 3</li> 
+    </ul>
+</div>
+{% endif %}
+
 {% endblock %}
