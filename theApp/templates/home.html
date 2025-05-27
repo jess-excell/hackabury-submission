@@ -3,8 +3,51 @@
 
 {% block content %}
 <section class="text-left">
-    <h1 class="text-4xl font-semibold text-white">Home Page</h1>
-    <p class="text-gray-400">Welcome to electric kebab connector</p>
+    
+    <div class="p-7 mx-auto bg-white shadow-md mt-7 rounded-lg ">
+        <div>
+            <h1 class="font-bold text-xl pb-4">About you and your trip...</h1>
+            <div class="grid gap-6 md:grid-cols-2">
+                <div>
+                    <label for="forename" class="text-[#542e91]">Forename</p>
+                    <input type="text" name="forename" placeholder="forename" class="flex-1 text-gray-900 border-1 border-gray-500 focus:border-blue-400 p-1"/>
+                </div>
+                <div>
+                    <label for="surname" class="text-[#542e91]">Surname</p>
+                    <input type="text" name="surname" placeholder="surname" class="flex-1 text-gray-900 border-1 border-gray-500 focus:border-blue-400 p-1"/>
+                </div>
+                <div>
+                    <label for="location" class="text-[#542e91]">From</p>
+                    <input type="text" name="location" placeholder="destination" class="flex-1 text-gray-900 border-1 border-gray-500 focus:border-blue-400 p-1"/>
+                </div>
+                <div>
+                    <label for="destination" class="text-[#542e91]">To</p>
+                    <input type="text" name="destination" placeholder="destination" class="flex-1 text-gray-900 border-1 border-gray-500 focus:border-blue-400 p-1"/>
+                </div>
+                <div>
+                    <label for="departureDate" class="text-[#542e91]">Departure date</p>
+                    <input type="date" name="departureDate" placeholder="01/01/2000" class="flex-1 text-gray-900 border-1 border-gray-500 focus:border-blue-400 p-1"/>
+                </div>
+                <div>
+                    <label for="returnDate" class="text-[#542e91]">Return date</p>
+                    <input type="date" name="returnDate" placeholder="01/02/2000" class="flex-1 text-gray-900 border-1 border-gray-500 focus:border-blue-400 p-1"/>
+                </div>
+            </div>
+            <h2 class="font-bold text-l py-4">What are you looking for?</h2>
+            <div class="grid gap-6 md:grid-cols-2">
+                <div>
+                    <label for="forename" class="text-[#542e91]">Forename</p>
+                    <input type="checkbox" value="empty" class="flex-1 text-gray-900 border-1 border-gray-500 focus:border-blue-400 p-1"/>
+                </div>
+                <div>
+                    <label for="forename" class="text-[#542e91]">Forename</p>
+                    <input type="checkbox" value="empty" class="flex-1 text-gray-900 border-1 border-gray-500 focus:border-blue-400 p-1"/>
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <button class="mt-5 p-2 rounded mx-auto items-center bg-[#542e91] text-white">Continue to booking</button>
+        </div>
 </section>
 
 {% endblock %}
