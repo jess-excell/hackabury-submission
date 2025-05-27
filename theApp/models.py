@@ -1,5 +1,5 @@
 from django.db import models
-
+'''
 class customer(models.Model):
     fname = models.CharField(max_length=150)
     lname = models.CharField(max_length=150)
@@ -11,6 +11,7 @@ class customer(models.Model):
     departuredate = models.DateField(null=True, blank=True)
     numberofpeople = models.IntegerField(default=1, max_length=20)
 
+
     travelinsurance = models.BooleanField(default=False, null=False, blank=False)
     outdooractivities = models.BooleanField(default=False, null=False, blank=False)
     transfer = models.BooleanField(default=False, null=False, blank=False)
@@ -21,6 +22,7 @@ class customer(models.Model):
     
     def __str__(self):
         return self.fname + " " + self.lname
+    '''
     
 class addOn (models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
