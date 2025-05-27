@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.views import View
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from .models import addOn
 
 class HomeView(View):
     def get(self, request):
@@ -24,10 +25,9 @@ def submit_form(request):
         return redirect("search")
     return HttpResponse("Invalid method", status=405)
 
-
-class ActivitiesView(View):
-    def get(self, request):
-        return render(request, 'activities.html')
+def ActivitiesView(request):
+    activities = addOn.objects.filter(type='activities', active=True)
+    return render(request, 'activities.html', {'activities': activities})
 
 class SearchView(View):
     def get(self, request):

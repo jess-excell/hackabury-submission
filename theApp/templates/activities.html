@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="text-2xl font-bold text-white mb-4">Activities</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for activity in activities %}
+        <div class="bg-gray-800 rounded-lg p-6 shadow-md">
+            <h3 class="text-xl text-white font-semibold mb-2">{{ activity.name }}</h3>
+            <p class="text-gray-400 mb-4">{{ activity.description }}</p>
+            <p class="text-blue-400 font-bold mb-2">£{{ activity.price }}</p>
+            <a href="{{ activity.url }}" class="text-blue-500 hover:underline">Book Now</a>
+        </div>
+    {% empty %}
+        <p class="text-gray-400">No activities available at the moment.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -32,11 +32,15 @@ class addOn (models.Model):
     availableTo = models.DateField(null=False, blank=False)
     active = models.BooleanField(default=True, null=False, blank=False)
     type = models.CharField(max_length=50, choices=[
-        ('outdoor', 'Outdoor Activities'),
-        ('transfer', 'Transfer Services'),
+        ('activities', 'Activities'),
+        ('transfer', 'Airport Transfer'),
         ('taxi', 'Taxi Services'),
         ('travelmoney', 'Travel Money'),
-        ('parking', 'Parking Services')
+        ('parking', 'Parking Services'),
+        ('insurance', 'Travel Insurance'),
+        ('car', 'Car Hire'),
+        ('fasttrack', 'Airport Fast Track'),
+        ('lounge', 'Airport Lounge'),
     ], default='')
     location = models.CharField(max_length=100, blank=True)
     minTravelers = models.IntegerField(default=1)
