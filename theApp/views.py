@@ -63,4 +63,8 @@ class SearchView(View):
         results = addOn.objects.filter(type__in=testchoices)
         
         #Send data to page
-        return render(request, "search.html", {"results": results})
+        return render(request, "search.html", {"results": results, "from": request.session.get("from"), "to": request.session.get("to"), "first_name": request.session.get("first_name")})
+    
+class AboutView(View):
+    def get(self, request):
+        return render(request, 'about.html')
