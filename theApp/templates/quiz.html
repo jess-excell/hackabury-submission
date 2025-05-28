@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST" action="submit_quiz_answers">
+    {% csrf_token %}
+    <h1 class="text-2xl">Quiz</h1>
+    <p class="pb-4">Curious what your holiday personality is? Answer these short questions to find out!</p>
+
+    <p class="text-xl">Q1: You've just finished a long day of work. How do you unwind?</p>
+    <input type="radio" name="q1" value="lounger"/>
+    <label>Throw on an episode of Netflix.</label><br/>
+    <input type="radio" name="q1" value="thriller"/>
+    <label>Straight to the gym! I need to burn off some stress.</label><br/>
+    <input type="radio" name="q1" value="artist"/>
+    <label>Read a new book, or maybe start a new painting.</label><br/>
+    <input type="radio" name="q1" value="traveller"/>
+    <label>I want to explore somewhere new - I'm going for a hike! </label><br/>
+    <br/>
+
+    <p class="text-xl">Q2: Where do you see yourself 5 years from now?</p>
+    <input type="radio" name="q2" value="thriller"/>
+    <label>I have no idea! I love to be spontaneous.</label><br/>
+    <input type="radio" name="q2" value="traveller"/>
+    <label>Travelling the world!</label><br/>
+    <input type="radio" name="q2" value="lounger"/>
+    <label>Lounging on a beach somewhere sunny.</label><br/>
+    <input type="radio" name="q2" value="artist"/>
+    <label>Exploring the world's best art galleries!</label><br/>
+    <br/>
+
+    <p class="text-xl">Q3: If you were stranded on an island, what item would you choose to take with you?</p>
+    <input type="radio" name="q3"  value="traveller"/>
+    <label>I wouldn't need anything - I'm already right at home!.</label><br/>
+    <input type="radio" name="q3" value="artist"/>
+    <label>My camera! I need to capture all the incredible views.</label><br/>
+    <input type="radio" name="q3" value="lounger"/>
+    <label>Food - I'm a very practical person.</label><br/>
+    <input type="radio" name="q3" value="thriller"/>
+    <label>My camera - but because I need to document all the memories I will be making!</label><br/>
+
+    <button type="submit" class="bg-blue-400 rounded p-2 mt-2 text-gray-900">Submit</button>
+</form>
+{% endblock %}
