@@ -35,7 +35,7 @@ class addOn (models.Model):
         ('activities', 'Activities'),
         ('transfer', 'Airport Transfer'),
         ('taxi', 'Taxi Services'),
-        ('travelmoney', 'Travel Money'),
+        ('airporthotel', 'Airport Hotel'),
         ('parking', 'Parking Services'),
         ('insurance', 'Travel Insurance'),
         ('car', 'Car Hire'),
