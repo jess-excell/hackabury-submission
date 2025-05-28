@@ -5,14 +5,16 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import addOn
 
+#Renders homepage
 class HomeView(View):
     def get(self, request):
         return render(request, 'home.html')
-    
+
+#Submits the search information
 def submit_form(request):
+    print(request.method)
     if request.method == 'POST':
         # save as session variables
-        
         
         request.session["first_name"] = request.POST.get('first_name')
         request.session["last_name"] = request.POST.get('last_name')
@@ -32,34 +34,33 @@ def submit_form(request):
         request.session["activities_and_festivals"] = request.POST.get('activities_and_festivals')
         request.session["parking"] = request.POST.get('parking')
         
-        
         return redirect("search")
+    
     return HttpResponse("Invalid method", status=405)
 
+#Random activities page
 def ActivitiesView(request):
     activities = addOn.objects.filter(type='activities', active=True)
     return render(request, 'activities.html', {'activities': activities})
 
+#Search results
 class SearchView(View):
     def get(self, request):
         
-        params = {
-            "first_name": request.session.get("first_name"),
-            "last_name": request.session.get("last_name"),
-            "from": request.session.get("from"),
-            "to": request.session.get("to"),
-            "departure": request.session.get("departure"),
-            "arrival": request.session.get("arrival"),
-            "number_of_travellers": request.session.get("number_of_travellers"),
-            "email": request.session.get("email"),
-            
-            "airport_transfer": request.session.get("airport_transfer"),
-            "airport_fast_track": request.session.get("airport_fast_track"),
-            "airport_lounge": request.session.get("airport_lounge"),
-            "taxi": request.session.get("taxi"),
-            "insurance": request.session.get("insurance"),
-            "travel_money": request.session.get("travel_money"),
-            "activities_and_festivals": request.session.get("activities_and_festivals"),
-            "parking": request.session.get("parking"),    
-        }        
-        return render(request, "search.html", params)
+        #Look through addons , filter
+        choices = [
+            "transfer" if request.session.get("airport_transfer") == 'on' else None,
+            "fasttrack" if request.session.get("airport_fast_track") == 'on' else None,
+            "lounge" if request.session.get("airport_lounge") == 'on' else None,
+            "taxi" if request.session.get("taxi") == 'on' else None,
+            "insurance" if request.session.get("insurance") == 'on' else None,
+            "travelmoney" if request.session.get("travel_money") == 'on' else None,
+            "activities" if request.session.get("activities_and_festivals") == 'on' else None,
+            "parking" if request.session.get("parking") == 'on' else None,
+        ]
+        
+        testchoices = [item for item in choices if item is not None]
+        results = addOn.objects.filter(type__in=testchoices)
+        
+        #Send data to page
+        return render(request, "search.html", {"results": results})
