@@ -4,6 +4,7 @@ from django.views import View
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import addOn
+from django.db.models import Q
 
 #Renders homepage
 class HomeView(View):
@@ -14,6 +15,7 @@ class HomeView(View):
 def submit_form(request):
     print(request.method)
     if request.method == 'POST':
+
         # save as session variables
         
         request.session["first_name"] = request.POST.get('first_name')
@@ -48,22 +50,44 @@ class SearchView(View):
     def get(self, request):
         
         #Look through addons , filter
+
         choices = [
             "transfer" if request.session.get("airport_transfer") == 'on' else None,
             "fasttrack" if request.session.get("airport_fast_track") == 'on' else None,
             "lounge" if request.session.get("airport_lounge") == 'on' else None,
             "taxi" if request.session.get("taxi") == 'on' else None,
             "insurance" if request.session.get("insurance") == 'on' else None,
-            "travelmoney" if request.session.get("travel_money") == 'on' else None,
+            "airporthotel" if request.session.get("airport_hotel") == 'on' else None,
             "activities" if request.session.get("activities_and_festivals") == 'on' else None,
             "parking" if request.session.get("parking") == 'on' else None,
         ]
         
         testchoices = [item for item in choices if item is not None]
-        results = addOn.objects.filter(type__in=testchoices)
+        # Clean up selected choices
+        selected_types = [item for item in choices if item is not None]
+
+        # Get locations from session
+        from_location = request.session.get("from", "").strip().lower()
+        to_location = request.session.get("to", "").strip().lower()
+
+        # Filter addons by type and location (case-insensitive)
+        results = addOn.objects.filter(
+            type__in=selected_types,
+            active=True
+        ).filter(
+            Q(location__iexact=from_location) | Q(location__iexact=to_location)
+        )
+
+        # Pass context to template
+        context = {
+            "results": results,
+            "from": request.session.get("from"),
+            "to": request.session.get("to"),
+            "first_name": request.session.get("first_name"),
+        }
         
         #Send data to page
-        return render(request, "search.html", {"results": results, "from": request.session.get("from"), "to": request.session.get("to"), "first_name": request.session.get("first_name")})
+        return render(request, 'search.html', context)
     
 class AboutView(View):
     def get(self, request):
