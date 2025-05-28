@@ -92,3 +92,51 @@ class SearchView(View):
 class AboutView(View):
     def get(self, request):
         return render(request, 'about.html')
+    
+# View for proposed quiz
+class QuizView(View):
+    def get(self, request):
+        return render(request, 'quiz.html')
+
+def submit_quiz_answers(request):
+    if (request.method != "POST"):
+        return HttpResponse("Invalid method", status=405)
+    
+    scores = {
+        "traveller": 0,
+        "lounger": 0,
+        "thriller": 0,
+        "artist": 0
+    }
+    
+    answers = [ request.POST.get("q1"), request.POST.get("q2"), request.POST.get("q3")]
+    
+    for answer in answers:
+        match (answer):
+            case "artist":
+                scores["traveller"] += 1
+            case "thriller":
+                scores["thriller"] += 1
+            case "lounger":
+                scores["lounger"] += 1
+            case "traveller":
+                scores["traveller"] += 1
+            case None:
+                return HttpResponse("Invalid method", status=405)
+    
+    top = max(scores, key=scores.get)
+    
+    descriptions = {
+        "traveller": "Courageous and curious, the traveller loves to explore and try new things. The unknown doesn't deter you, it excites you.",
+        "lounger": "Calm and reliable, the lounger loves a more relaxing holiday.",
+        "thriller": "Exciting, outgoing and bold, the thrill seeker loves to seek out new adventures.",
+        "artist": "ARTIST DESC GOES HERE"
+    }
+    
+    activities = {
+        "traveller": [ "Hiking", "Kayaking"],
+        "lounger": ["Beach weekend", "Cooking class", "Theatre"],
+        "thriller": ["Bungee jumping", "Ziplining", "Racing"],
+        "artist": ["Theatre", "Cooking class"]
+    }
+    return render(request, 'quiz-result.html', {"type": top, "description": descriptions[top], "activities": activities[top]})
