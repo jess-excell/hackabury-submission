@@ -1,3 +1,8 @@
 from django.contrib import admin
 from .models import *
-# Register your models here.
+
+@admin.register(addOn)
+class AddOnAdmin(admin.ModelAdmin):
+    list_display = ('name', 'type', 'price', 'availableFrom', 'availableTo', 'active')
+    list_filter = ('type', 'active', 'location')
+    search_fields = ('name', 'description', 'location')

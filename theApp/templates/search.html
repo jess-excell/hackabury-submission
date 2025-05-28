@@ -5,9 +5,14 @@
 <p>You've selected to go from {{ from }} to {{ to }}. We've found the following options for you:</p>
 <br/>
 
-<ul>
+<ul class="flex flex-wrap gap-4">
   {% for item in results %}
-    <li>{{ item }}</li>
+    <li class="p-5 w-[30%] bg-gray-400/15 rounded-lg my-3 hover:bg-gray-400/30 ease-in-out transition">
+      <h3 class="text-xl font-bold">{{ item.title }}</h3>  {# example field #}
+      <p class="mt-3 text-gray-400">{{ item.description }}</p>  {# example field #}
+      <p class="text-blue-200/80 mt-5 font-bold">£{{ item.price }}</p>  {# example field #}
+      <p class="text-blue-200/80 mb-3">Book now</p>
+    </li>
   {% endfor %}
 </ul>
 
