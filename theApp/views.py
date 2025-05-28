@@ -13,7 +13,7 @@ def submit_form(request):
     if request.method == 'POST':
         # save as session variables
         
-        
+
         request.session["first_name"] = request.POST.get('first_name')
         request.session["last_name"] = request.POST.get('last_name')
         request.session["from"] = request.POST.get('from')
@@ -63,3 +63,8 @@ class SearchView(View):
             "parking": request.session.get("parking"),    
         }        
         return render(request, "search.html", params)
+    
+
+class AboutView(View):
+    def get(self, request):
+        return render(request, 'about.html')

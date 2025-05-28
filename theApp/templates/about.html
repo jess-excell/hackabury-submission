@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<section class="px-6 py-20 max-w-5xl mx-auto text-center">
+    <h1 class="text-4xl font-bold text-white mb-6">About Us</h1>
+    <p class="text-gray-400 text-lg leading-relaxed mb-12">
+        Holiday Extras is a travel website designed to help travellers discover the best add ons tailored to their trip. 
+        We provide personalised recommendations such as airport transfers, insurance, lounges, and local activities based on travellers' destination, travel dates, and preferences.
+    </p>
+
+    <h2 class="text-3xl font-semibold text-white mb-4">The Team</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+        <div class="border border-gray-600 p-6 rounded-lg bg-gray-900/30 backdrop-blur-lg">
+            <h3 class="text-xl font-bold text-white">Jessica Excell</h3>
+            <p class="text-gray-400 mt-2">Frontend Developer</p>
+        </div>
+        <div class="border border-gray-600 p-6 rounded-lg bg-gray-900/30 backdrop-blur-lg">
+            <h3 class="text-xl font-bold text-white">Alireza Khandan</h3>
+            <p class="text-gray-400 mt-2">Frontend Developer</p>
+        </div>
+        <div class="border border-gray-600 p-6 rounded-lg bg-gray-900/30 backdrop-blur-lg">
+            <h3 class="text-xl font-bold text-white">George Graham</h3>
+            <p class="text-gray-400 mt-2">Frontend Developer</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
