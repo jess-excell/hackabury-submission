@@ -3,9 +3,12 @@ from django.contrib import auth
 from django.views import View
 from django.http import HttpResponse
 from django.shortcuts import redirect
-from .models import addOn
+from .models import addOn, HolidayPersonalityType
 from django.db.models import Q
+from django.views.generic import DetailView
+from django.shortcuts import get_object_or_404
 
+from django.views.generic.edit import FormView
 #Renders homepage
 class HomeView(View):
     def get(self, request):
@@ -93,50 +96,66 @@ class AboutView(View):
     def get(self, request):
         return render(request, 'about.html')
     
-# View for proposed quiz
-class QuizView(View):
-    def get(self, request):
-        return render(request, 'quiz.html')
 
-def submit_quiz_answers(request):
-    if (request.method != "POST"):
-        return HttpResponse("Invalid method", status=405)
+class QuizView(FormView):
+    """
+    QuizView is a FormView (although currently missing a form class!)
+    that handles the user's quiz answers and redirects the user to
+    the personality page once they have answered all the questions.
+    """
+    def get(self, request):
+        """Returns the template page to answer the quiz questions."""
+        return render(request, 'quiz.html')
     
-    scores = {
-        "traveller": 0,
-        "lounger": 0,
-        "thriller": 0,
-        "artist": 0
-    }
+    def post(self, request, *args, **kwargs):
+        """
+        Handles the submission of quiz answers and redirects to the relevant personality
+        page if quiz is successfully answered.
+        """
+        scores = {
+            "traveller": 0,
+            "lounger": 0,
+            "thrill_seeker": 0,
+            "artist": 0
+        }
+        
+        answers = [ 
+            request.POST.get("q1"),
+            request.POST.get("q2"), 
+            request.POST.get("q3")
+        ]
+        
+        for answer in answers:
+            match (answer):
+                case "artist":
+                    scores["traveller"] += 1
+                case "thriller":
+                    scores["thrill_seeker"] += 1
+                case "lounger":
+                    scores["lounger"] += 1
+                case "traveller":
+                    scores["traveller"] += 1
+                case None:
+                    return HttpResponse("Invalid method", status=405)
+        
+        top = max(scores, key=scores.get)
+        return redirect("personality", personality=top)
+
+class PersonalityView(DetailView):
+    """View used with `personality.html` to display user's personality type."""
+    template_name = "personality.html"
+    model = HolidayPersonalityType
+    context_object_name="personality"
+    slug_url_kwarg="personality"
     
-    answers = [ request.POST.get("q1"), request.POST.get("q2"), request.POST.get("q3")]
-    
-    for answer in answers:
-        match (answer):
-            case "artist":
-                scores["traveller"] += 1
-            case "thriller":
-                scores["thriller"] += 1
-            case "lounger":
-                scores["lounger"] += 1
-            case "traveller":
-                scores["traveller"] += 1
-            case None:
-                return HttpResponse("Invalid method", status=405)
-    
-    top = max(scores, key=scores.get)
-    
-    descriptions = {
-        "traveller": "Courageous and curious, the traveller loves to explore and try new things. The unknown doesn't deter you, it excites you.",
-        "lounger": "Calm and reliable, the lounger loves a more relaxing holiday.",
-        "thriller": "Exciting, outgoing and bold, the thrill seeker loves to seek out new adventures.",
-        "artist": "ARTIST DESC GOES HERE"
-    }
-    
-    activities = {
-        "traveller": [ "Hiking", "Kayaking"],
-        "lounger": ["Beach weekend", "Cooking class", "Theatre"],
-        "thriller": ["Bungee jumping", "Ziplining", "Racing"],
-        "artist": ["Theatre", "Cooking class"]
-    }
-    return render(request, 'quiz-result.html', {"type": top, "description": descriptions[top], "activities": activities[top]})
+    def get_context_data(self, **kwargs):
+        """
+        Adds the personality data to the context_data object to be used
+        in `personality.html`.
+        """
+        data = super().get_context_data(**kwargs)
+        data["personality"] = get_object_or_404(
+            HolidayPersonalityType, 
+            slug=self.kwargs.get("personality")
+        )
+        return data

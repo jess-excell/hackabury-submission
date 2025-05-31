@@ -1,10 +1,35 @@
 from django.core.management.base import BaseCommand
 from datetime import date
-from theApp.models import addOn
+from theApp.models import addOn, ActivityType, HolidayPersonalityType
 
 class Command(BaseCommand):
+    
     def handle(self, *args, **options):
-        sample_data = [
+        """
+        Creation script method to be run only on an empty database. Script adds sample data for:
+        
+        - Add ons
+        - Activity types
+        - Holiday personality types
+        
+        This script assumes that `py manage.py migrate` has already been run.
+        \n**DO NOT RUN THIS IF THE DATABASE IS NOT EMPTY.**
+        """
+        
+        if (addOn.objects.count() > 0):
+            print("Error: Add on objects already exist. Population script must only be run on an empty database. Exiting.")
+            return()
+        
+        if (ActivityType.objects.count() > 0):
+            print("Error: Activity type objects already exist. Population script must only be run on an empty database. Exiting.")
+            return()
+        
+        if (HolidayPersonalityType.objects.count() > 0):
+            print("Error: Holiday personality type objects already exist. Population script must only be run on an empty database. Exiting.")
+            return()
+        
+        print("Generating add on data...")
+        add_on_sample_data = [
             {
                 "name": "City Walking Tour",
                 "description": "A guided walking tour through the city's historic landmarks.",
@@ -239,7 +264,7 @@ class Command(BaseCommand):
                 "maxTravelers": 6,
                 "url": "https://example.com/cooking"
             },
-            {
+            {   
                 "name": "Ghost Tour",
                 "description": "A spooky night-time tour of haunted sites.",
                 "price": 25.00,
@@ -267,5 +292,108 @@ class Command(BaseCommand):
             }
         ]
         
-        for entry in sample_data:
+        print("Done.")
+        print("Populating add ons...")
+        
+        for entry in add_on_sample_data:
             addOn.objects.create(**entry)
+        
+        print("Done.")
+        
+        print("Creating and populating activities...")
+        activity_sample_data = [
+            {
+                "name": "Hiking",
+                "description": "HIKING DESCRIPTION",
+                "image_src": "https://images.pexels.com/photos/1365425/pexels-photo-1365425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            },
+            {
+                "name": "Kayaking",
+                "description": "KAYAKING DESCRIPTION",
+                "image_src": "https://images.pexels.com/photos/933843/pexels-photo-933843.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            },
+            {
+                "name": "Beach Weekend",
+                "description": "BEACH DESCRIPTION",
+                "image_src": "https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            },
+            {
+                "name": "Cooking Class",
+                "description": "COOKING DESCRIPTION",
+                "image_src": "https://images.pexels.com/photos/2284166/pexels-photo-2284166.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            },
+            {
+                "name": "Theatre",
+                "description": "THEATRE DESCRIPTION",
+                "image_src": "https://images.pexels.com/photos/1714361/pexels-photo-1714361.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            },
+            {
+                "name": "Bungee Jumping",
+                "description": "BUNGEE DESCRIPTION",
+                "image_src": "https://images.pexels.com/photos/1486036/pexels-photo-1486036.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            },
+            {
+                "name": "Ziplining",
+                "description": "ZIPLINING DESCRIPTION",
+                "image_src": "https://images.pexels.com/photos/6663059/pexels-photo-6663059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            },
+            {
+                "name": "Racing",
+                "description": "RACING DESCRIPTION",
+                "image_src": "https://images.pexels.com/photos/12795/pexels-photo-12795.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            }
+        ]
+        
+        for entry in activity_sample_data:
+            ActivityType.objects.create(**entry)
+        print("Done.")
+        
+        print("Creating and populating Holiday Personality types...")
+        
+        temp = HolidayPersonalityType.objects.create(
+            slug="artist",
+            description="The artist loves to look at paintings i guess",
+            image_src="https://images.unsplash.com/photo-1653987255814-3b4c05832660?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        )
+        
+        temp.recommended_activities.set([
+            ActivityType.objects.get(name="Theatre"),
+            ActivityType.objects.get(name="Cooking Class")
+        ])
+    
+        temp = HolidayPersonalityType.objects.create(
+            slug="traveller",
+            description="Courageous and curious, the traveller loves to explore and try new things. The unknown doesn't deter you, it excites you.",
+            image_src="https://images.unsplash.com/photo-1505778276668-26b3ff7af103?q=80&w=1161&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        )
+        
+        temp.recommended_activities.set([
+            ActivityType.objects.get(name="Hiking"),
+            ActivityType.objects.get(name="Kayaking")
+        ])
+        
+        temp = HolidayPersonalityType.objects.create(
+            slug="thrill_seeker",
+            description="Exciting, outgoing and bold, the thrill seeker loves to seek out new adventures.",
+            image_src="https://images.unsplash.com/photo-1601224748193-d24f166b5c77?q=80&w=1064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        )
+        
+        temp.recommended_activities.set([
+            ActivityType.objects.get(name="Bungee Jumping"),
+            ActivityType.objects.get(name="Ziplining"),
+            ActivityType.objects.get(name="Racing")
+        ])
+        
+        temp = HolidayPersonalityType.objects.create(
+            slug="lounger",
+            description="Calm and reliable, the lounger loves a more relaxing holiday.",
+            image_src="https://images.unsplash.com/photo-1560332944-d047e59ac9b2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        )
+        
+        temp.recommended_activities.set([
+            ActivityType.objects.get(name="Beach Weekend"),
+            ActivityType.objects.get(name="Cooking Class"),
+            ActivityType.objects.get(name="Theatre")
+        ])
+    
+        print("Done.")

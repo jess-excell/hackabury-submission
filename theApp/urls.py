@@ -10,5 +10,5 @@ urlpatterns = [
     path('activities/', ActivitiesView, name='activities'),
     path('about/', AboutView.as_view(), name='about'),
     path('quiz/', QuizView.as_view(), name="quiz"),
-    path('quiz/submit_quiz_answers', submit_quiz_answers, name="result")
+    path('personality/<slug:personality>', PersonalityView.as_view(), name="personality")
 ]

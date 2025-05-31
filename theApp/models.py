@@ -49,3 +49,20 @@ class addOn (models.Model):
 
     def __str__(self):
         return self.name
+    
+class ActivityType(models.Model):
+    name = models.CharField(max_length=100, null=False, blank=False)
+    description = models.TextField(max_length=500, null=False, blank=False)
+    image_src = models.CharField()
+    
+    def __str__(self):
+        return self.name
+
+class HolidayPersonalityType(models.Model):
+    slug = models.CharField(max_length=100, null=False, blank=False)
+    description = models.TextField(max_length=500, null=False, blank=False)
+    image_src = models.CharField()
+    recommended_activities = models.ManyToManyField(ActivityType)
+    
+    def __str__(self):
+        return self.slug.replace("_", " ")
