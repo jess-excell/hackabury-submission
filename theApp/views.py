@@ -128,7 +128,7 @@ class QuizView(FormView):
         for answer in answers:
             match (answer):
                 case "artist":
-                    scores["traveller"] += 1
+                    scores["artist"] += 1
                 case "thriller":
                     scores["thrill_seeker"] += 1
                 case "lounger":
