@@ -122,9 +122,14 @@ class QuizView(FormView):
         answers = [ 
             request.POST.get("q1"),
             request.POST.get("q2"), 
-            request.POST.get("q3")
+            request.POST.get("q3"),
+            request.POST.get("q4"),
+            request.POST.get("q5")
         ]
         
+        if None in answers:
+            return render(request, 'quiz.html', {'error': 'Please answer all the questions.'})
+                
         for answer in answers:
             match (answer):
                 case "artist":
@@ -135,8 +140,6 @@ class QuizView(FormView):
                     scores["lounger"] += 1
                 case "traveller":
                     scores["traveller"] += 1
-                case None:
-                    return HttpResponse("Invalid method", status=405)
         
         top = max(scores, key=scores.get)
         return redirect("personality", personality=top)

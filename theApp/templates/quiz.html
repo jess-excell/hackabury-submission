@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+<h1 class="text-4xl mb-4">Holiday Personality Test</h1>
+<h2 class="text-2xl mb-10">Curious what your holiday personality is? Answer these short questions to find out!</h2>
+
 <form method="POST">
     {% csrf_token %}
-    <h1 class="text-2xl">Quiz</h1>
-    <p class="pb-4">Curious what your holiday personality is? Answer these short questions to find out!</p>
-
-    <p class="text-xl">Q1: You've just finished a long day of work. How do you unwind?</p>
+    <p class="text-xl mb-1">You've just finished a long day of work. How do you unwind?</p>
     <input type="radio" name="q1" value="lounger"/>
     <label>Throw on an episode of Netflix.</label><br/>
     <input type="radio" name="q1" value="thriller"/>
@@ -13,30 +13,56 @@
     <input type="radio" name="q1" value="artist"/>
     <label>Read a new book, or maybe start a new painting.</label><br/>
     <input type="radio" name="q1" value="traveller"/>
-    <label>I want to explore somewhere new - I'm going for a hike! </label><br/>
-    <br/>
+    <label>I want to explore somewhere new - I'm going for a hike! </label>
 
-    <p class="text-xl">Q2: Where do you see yourself 5 years from now?</p>
-    <input type="radio" name="q2" value="thriller"/>
-    <label>I have no idea! I love to be spontaneous.</label><br/>
+    <p class="text-xl mb-1 mt-5">On a Monday morning, you...</p>
     <input type="radio" name="q2" value="traveller"/>
-    <label>Travelling the world!</label><br/>
-    <input type="radio" name="q2" value="lounger"/>
-    <label>Lounging on a beach somewhere sunny.</label><br/>
+    <label>Wake up sometime before noon. I'm self employed, so I choose my own hours.</label><br/>
+    <input type="radio" name="q2" value="thriller"/>
+    <label>Wake up at either 5am or 3pm - there's no inbetween.</label><br/>
     <input type="radio" name="q2" value="artist"/>
-    <label>Exploring the world's best art galleries!</label><br/>
-    <br/>
-
-    <p class="text-xl">Q3: If you were stranded on an island, what item would you choose to take with you?</p>
-    <input type="radio" name="q3"  value="traveller"/>
-    <label>I wouldn't need anything - I'm already right at home!.</label><br/>
-    <input type="radio" name="q3" value="artist"/>
-    <label>My camera! I need to capture all the incredible views.</label><br/>
-    <input type="radio" name="q3" value="lounger"/>
-    <label>Food - I'm a very practical person.</label><br/>
+    <label></label>Are up at the crack of dawn to watch the sunrise!<br/>
+    <input type="radio" name="q2" value="lounger"/>
+    <label>Wake up at the same time daily, complete my normal routine and head to work.</label>
+    
+    <p class="text-xl mb-1 mt-5">Where do you see yourself 5 years from now?</p>
     <input type="radio" name="q3" value="thriller"/>
+    <label>I have no idea! I love to be spontaneous.</label><br/>
+    <input type="radio" name="q3" value="traveller"/>
+    <label>Travelling the world!</label><br/>
+    <input type="radio" name="q3" value="lounger"/>
+    <label>Lounging on a beach somewhere sunny.</label><br/>
+    <input type="radio" name="q3" value="artist"/>
+    <label>Exploring the world's best art galleries.</label>
+
+    <p class="text-xl mb-1 mt-5">When on holiday, you like to...</p>
+    <input type="radio" name="q4" value="thriller"/>
+    <label>Find the most exciting attractions - theme parks, haunted houses, anything!</label><br/>
+    <input type="radio" name="q4" value="traveller"/>
+    <label>Explore all the views the location has to offer!</label><br/>
+    <input type="radio" name="q4" value="lounger"/>
+    <label>Take a breather - a holiday is meant to be for de-stressing!</label><br/>
+    <input type="radio" name="q4" value="artist"/>
+    <label>Visit the local museums and galleries, and generally explore the culture of the place.</label>
+
+    <p class="text-xl mb-1 mt-5">If you were stranded on an island, what item would you choose to take with you?</p>
+    <input type="radio" name="q5"  value="traveller"/>
+    <label>I wouldn't need anything - I'm already right at home!</label><br/>
+    <input type="radio" name="q5" value="artist"/>
+    <label>My camera! I need to capture all the incredible views.</label><br/>
+    <input type="radio" name="q5" value="lounger"/>
+    <label>Food - I'm a very practical person.</label><br/>
+    <input type="radio" name="q5" value="thriller"/>
     <label>My camera - but because I need to document all the memories I will be making!</label><br/>
 
-    <button type="submit" class="bg-blue-400 rounded p-2 mt-2 text-gray-900">Submit</button>
+    <button type="submit" class="bg-purple-200 rounded px-4 py-2 mb-10 mt-5 text-gray-900">Submit</button>
+    <div class="place-self-center">
+        {% if error %}
+            <div class="bg-red-700 border border-red-900 text-red-100 mb-10 px-10 py-3 w-fit rounded" role="alert">
+                Error: {{error}}
+            </div>    
+        {% endif %}
+    </div>
+
 </form>
 {% endblock %}
