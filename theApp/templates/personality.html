@@ -10,7 +10,7 @@
 <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for activity in personality.recommended_activities.all %}
         <li class="outline m-10 rounded">
-            <image src={{activity.image_src}} class="rounded-tl rounded-tr "/>
+            <image src={{activity.image_src}} class="aspect-[3/2] rounded-tl rounded-tr "/>
             <div class="p-3">
                 <h3 class="font-bold">{{activity.name}}</h3>
                 <p>{{activity.description}}</p>
