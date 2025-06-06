@@ -10,5 +10,6 @@ urlpatterns = [
     path('activities/', ActivitiesView, name='activities'),
     path('about/', AboutView.as_view(), name='about'),
     path('quiz/', QuizView.as_view(), name="quiz"),
+    path('personality/', PersonalitiesView.as_view(), name="personalities"),
     path('personality/<slug:personality>', PersonalityView.as_view(), name="personality")
 ]

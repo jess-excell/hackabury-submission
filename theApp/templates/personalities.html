@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-4xl pb-2">Personalities</h1>
+<p class="text-xl pb-5">Explore the different holiday personality types below!</p>
+
+<ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for personality in personalities %}
+        <a class="brightness-90 hover:brightness-[110%] cursor-pointer ease-in-out transition" href="{% url 'personality' personality=personality.slug %}">
+            <li class="outline m-10 rounded">
+                <image src={{personality.image_src}} class="aspect-[3/2] rounded-tl rounded-tr"/>
+                <div class="p-3">
+                    <h3 class="font-bold">{{personality | title}}</h3>
+                    <p>{{personality.description}}</p>
+                </div>
+            </li>
+        </a>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import addOn, HolidayPersonalityType
 from django.db.models import Q
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.shortcuts import get_object_or_404
 
 from django.views.generic.edit import FormView
@@ -143,6 +143,12 @@ class QuizView(FormView):
         
         top = max(scores, key=scores.get)
         return redirect("personality", personality=top)
+
+class PersonalitiesView(ListView):
+    """View used with `personalities.html` to provide a menu of holiday personality types."""
+    template_name = "personalities.html"
+    context_object_name = "personalities"
+    model = HolidayPersonalityType
 
 class PersonalityView(DetailView):
     """View used with `personality.html` to display user's personality type."""
